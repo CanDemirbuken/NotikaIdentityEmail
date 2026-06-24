@@ -1,4 +1,4 @@
-﻿@model RegisterUserViewModel
+﻿@model UserRegisterViewModel
 
 @{
     Layout = null;
@@ -47,9 +47,12 @@
                     </div>
                 </div>
 
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <div class="form-row-last">
                     <input type="submit" class="register" value="Kayıt Ol">
+                    <input type="button" class="login" value="Hesabım Var" onclick="window.location='@Url.Action("UserLogin", "Login")'">
                 </div>
+                
             </form>
         </div>
     </div>

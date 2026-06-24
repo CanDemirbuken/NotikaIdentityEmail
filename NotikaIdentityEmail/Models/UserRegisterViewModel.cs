@@ -1,6 +1,6 @@
 ﻿namespace NotikaIdentityEmail.Models;
 
-public class RegisterUserViewModel
+public class UserRegisterViewModel
 {
     public string Name { get; set; }
     public string Surname { get; set; }

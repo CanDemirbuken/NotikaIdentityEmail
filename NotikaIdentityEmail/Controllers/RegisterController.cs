@@ -14,7 +14,7 @@ public class RegisterController(UserManager<AppUser> userManager) : Controller
     }
 
     [HttpPost]
-    public async ValueTask<IActionResult> CreateUser(RegisterUserViewModel model)
+    public async ValueTask<IActionResult> CreateUser(UserRegisterViewModel model)
     {
         AppUser appUser = new AppUser()
         {
@@ -30,6 +30,7 @@ public class RegisterController(UserManager<AppUser> userManager) : Controller
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
+                return View();
             }
         }
 
