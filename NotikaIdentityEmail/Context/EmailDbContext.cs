@@ -10,4 +10,7 @@ public class EmailDbContext : IdentityDbContext<AppUser>
     {
         optionsBuilder.UseSqlServer("Server=ATSTRNB133;Initial Catalog=NotikaEmailDb;User Id=sa;Password=CanATS2025.;Trust Server Certificate=true;");
     }
+
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Message> Messages { get; set; }
 }
