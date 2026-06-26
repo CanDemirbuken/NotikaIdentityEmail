@@ -8,5 +8,10 @@ namespace NotikaIdentityEmail.Controllers
         {
             return View();
         }
+
+        public IActionResult Page401()
+        {
+            return View();
+        }
     }
 }
