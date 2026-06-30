@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NotikaIdentityEmail.Entities;
-using NotikaIdentityEmail.Models;
+using NotikaIdentityEmail.Models.IdentityModels;
 
 namespace NotikaIdentityEmail.Controllers;
 
