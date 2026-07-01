@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -15,14 +16,26 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<EmailDbContext>();
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<EmailDbContext>()
-    .AddErrorDescriber<CustomIdentityValidator>();
+    .AddErrorDescriber<CustomIdentityValidator>()
+    .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
 
 builder.Services.Configure<JwtSettingsModel>(builder.Configuration.GetSection("JwtSettingsKey"));
+
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(opt =>
+    //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    //options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+  .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+{
+    options.LoginPath = "/Login/UserLogin";
+    options.AccessDeniedPath = "/Error/403";
+})
+  .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
 {
     var jwtSettings = builder.Configuration.GetSection("JwtSettingsKey").Get<JwtSettingsModel>();
     opt.TokenValidationParameters = new TokenValidationParameters
@@ -38,6 +51,8 @@ builder.Services.AddAuthentication(options =>
 });
 
 var app = builder.Build();
+
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html class="no-js" lang="">
+
+@await Component.InvokeAsync("LayoutHead")
+
+<body>
+    <div class="error-page-area">
+        <div class="error-page-wrap">
+            <i class="notika-icon notika-close"></i>
+            <h2>Oooopppsss! <span class="counter">403</span></h2>
+            <p>Yetkisiz erişim! Lütfen rollerinizi denetleyin!</p>
+            <a href="/Message/Inbox/" class="btn">Ana Sayfa</a>
+            <a href="/Role/RoleList/" class="btn error-btn-mg">Rol Listesi</a>
+        </div>
+    </div>
+    @await Component.InvokeAsync("LayoutScripts")
+</body>
+
+</html>
